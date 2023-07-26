@@ -1,6 +1,8 @@
 # dashboard
-Dashboard sobre una publicacion de facebook
+Dashboard sobre la interactividad una publicacion de facebook
 ![image](https://github.com/dvicampos/dashboard/assets/107318970/e8425da5-0a92-473e-9ae4-30a74d418f97)
+# Datos obtendos de:
+https://www.kaggle.com/datasets/masoodanzar/facebook-metrics
 
 #Tecnologias ocupadas: 
 
