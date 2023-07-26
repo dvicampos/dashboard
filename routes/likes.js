@@ -11,9 +11,9 @@ router.get('/likes', (req, res) => {
 });
 
 router.post('/likes', (req, res) => {
-  const { Id_publicacion, numero_gusta } = req.body;
-  const query = 'INSERT INTO Likes (Id_publicacion, numero_gusta) VALUES (?, ?)';
-  db.query(query, [Id_publicacion, numero_gusta], (err, result) => {
+  const {Id , Id_publicacion, numero_gusta } = req.body;
+  const query = 'INSERT INTO Likes (Id , Id_publicacion, numero_gusta) VALUES (?, ?, ?)';
+  db.query(query, [Id, Id_publicacion, numero_gusta], (err, result) => {
     if (err) throw err;
     res.redirect('/likes');
   });
