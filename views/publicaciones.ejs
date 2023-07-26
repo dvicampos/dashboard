@@ -76,6 +76,36 @@
         </main>
     </div>
   </div>
+  <div class="container">
+    <canvas id="publicidadeschart" width="400" height="200"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const chartData = {
+      labels: <%= JSON.stringify(publicaciones.map(com => com.Id)) %>,
+      datasets: [{
+        label: 'Número de Compartidas',
+        data: <%= JSON.stringify(publicaciones.map(com => com.pagado)) %>,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      }]
+    };
+
+    const ctx = document.getElementById('publicidadeschart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>
