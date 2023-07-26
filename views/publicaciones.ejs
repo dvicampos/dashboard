@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>List of Publications</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body>
+      <%- include('layout') %>
+          <h2>Crear una nueva publicación:</h2>
+          <form action="/publicaciones" method="POST">
+            <label for="Id">Id:</label>
+            <input type="text" name="Id" required>
+
+            <label for="Tipo_publicacion">Tipo de publicación:</label>
+            <input type="text" name="Tipo_publicacion" required>
+
+            <label for="mes_publicacion">Mes de publicación:</label>
+            <input type="text" name="mes_publicacion" required>
+            <br>
+            <label for="dia_publicacion">Día de publicación:</label>
+            <input type="text" name="dia_publicacion" required>
+
+            <label for="hora_publicacion">Hora de publicación:</label>
+            <input type="text" name="hora_publicacion" required>
+
+            <label for="pagado">Pagado (Sí(1) o No(0)):</label>
+            <input type="text" name="pagado" required>
+
+            <button type="submit">Crear</button>
+          </form>
+
+          <!-- Mostrar las publicaciones existentes -->
+          <h2>Publicaciones existentes:</h2>
+          <ul>
+            <div class="table-responsive small">
+              <table class="table table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tipo de publicación</th>
+                    <th scope="col">Mes de publicación</th>
+                    <th scope="col">Día de publicación</th>
+                    <th scope="col">Hora de publicación</th>
+                    <th scope="col">Pagado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% publicaciones.forEach(publicacion=> { %>
+                    <tr>
+                      <td>
+                        <%= publicacion.Id %>
+                      </td>
+                      <td>
+                        <%= publicacion.Tipo_publicacion %>
+                      </td>
+                      <td>
+                        <%= publicacion.mes_publicacion %>
+                      </td>
+                      <td>
+                        <%= publicacion.dia_publicacion %>
+                      </td>
+                      <td>
+                        <%= publicacion.hora_publicacion %>
+                      </td>
+                      <td>
+                        <%= publicacion.pagado %>
+                      </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </ul>
+        </main>
+    </div>
+  </div>
+</body>
+
+</html>
