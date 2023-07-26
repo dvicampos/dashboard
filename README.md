@@ -1,4 +1,5 @@
 # dashboard
 Dashboard sobre una publicacion de facebook
-![image](https://github.com/dvicampos/dashboard/assets/107318970/7b1dcb18-512b-4850-9eec-21f5dbe21d58)
-![image](https://github.com/dvicampos/dashboard/assets/107318970/21f7fa13-ba1c-4427-8e1d-97e6a1d471c6)
+![image](https://github.com/dvicampos/dashboard/assets/107318970/84cd5486-b60f-4ec9-a84c-fc96a1a2b887)
+
+![image](https://github.com/dvicampos/dashboard/assets/107318970/e8425da5-0a92-473e-9ae4-30a74d418f97)
