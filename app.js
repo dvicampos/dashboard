@@ -17,7 +17,6 @@ app.get('/', (req, res) => {
     res.render('index'); 
   });
 
-
 const publicacionesRoutes = require('./routes/publicaciones');
 app.use('/', publicacionesRoutes);
 
@@ -29,7 +28,6 @@ app.use('/', comentariosRoutes);
 
 const compartirRoutes = require('./routes/compartir');
 app.use('/', compartirRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en el puerto http://localhost:${PORT}`);
