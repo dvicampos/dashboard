@@ -4,10 +4,9 @@ const mysql = require('mysql');
 const { render, renderFile } = require('ejs');
 const app = express();
 const PORT = 3000;
+const db = require('./db');
 
 app.use(express.static('public'));
-
-const db = require('./db'); 
 
 app.set('view engine', 'ejs');
 
@@ -15,7 +14,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.render('index'); 
-  });
+});
+
+const graficasRoutes = require('./routes/graficas')
+app.use('/', graficasRoutes)
 
 const publicacionesRoutes = require('./routes/publicaciones');
 app.use('/', publicacionesRoutes);

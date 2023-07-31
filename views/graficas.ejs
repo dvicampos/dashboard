@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>List of Publications</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body>
+    <%- include('layout') %>
+        </main>
+    </div>
+</div>
+
+<h2>Gráfica de publicaciones pagadas del mes ...</h2>
+<div class="container">
+  <canvas id="publicidadeschart1" width="400" height="200"></canvas>
+</div>
+
+<h2>Gráfica de likes:</h2>
+<div class="container">
+  <canvas id="publicidadeschart2" width="400" height="200"></canvas>
+</div>
+
+<h2>Gráfica de comentarios</h2>
+<div class="container">
+  <canvas id="publicidadeschart3" width="400" height="200"></canvas>
+</div>
+
+<h2>Gráfica de compartir</h2>
+<div class="container">
+  <canvas id="publicidadeschart4" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const grafica1Data = {
+    labels: <%= JSON.stringify(grafica1.map(publicacion => publicacion.Id)) %>,
+    datasets: [{
+      label: 'Número de publicaciones pagadas',
+      data: <%= JSON.stringify(grafica1.map(publicacion => publicacion.pagado)) %>,
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+    }]
+  };
+
+  const grafica2Data = {
+    labels: <%= JSON.stringify(grafica2.map(likes => likes.Id)) %>,
+    datasets: [{
+      label: 'Número de likes',
+      data: <%= JSON.stringify(grafica2.map(likes => likes.numero_gusta)) %>,
+      fill: false,
+      borderColor: 'rgb(192, 75, 192)',
+    }]
+  };
+
+  const grafica3Data = {
+    labels: <%= JSON.stringify(grafica3.map(comentarios => comentarios.Id)) %>,
+    datasets: [{
+      label: 'Número de comentarios',
+      data: <%= JSON.stringify(grafica3.map(comentarios => comentarios.numero_comentarios)) %>,
+      fill: false,
+      borderColor: 'rgb(192, 192, 75)',
+    }]
+  };
+  const grafica4Data = {
+    labels: <%= JSON.stringify(grafica4.map(compartir => compartir.Id)) %>,
+    datasets: [{
+      label: 'Número de compartidos',
+      data: <%= JSON.stringify(grafica4.map(compartir => compartir.numero_compartir)) %>,
+      fill: false,
+      borderColor: 'rgb(192, 192, 75)',
+    }]
+  };
+
+  const ctx1 = document.getElementById('publicidadeschart1').getContext('2d');
+  new Chart(ctx1, {
+    type: 'line',
+    data: grafica1Data,
+    options: {
+      animations: {
+        tension: {
+          duration: 1000,
+          easing: 'linear',
+          from: 1,
+          to: 0,
+          loop: true
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 1.3
+        }
+      }
+    }
+  });
+
+  const ctx2 = document.getElementById('publicidadeschart2').getContext('2d');
+  new Chart(ctx2, {
+    type: 'line',
+    data: grafica2Data,
+    options: {
+      animations: {
+        tension: {
+          duration: 1000,
+          easing: 'linear',
+          from: 1,
+          to: 0,
+          loop: true
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 5500
+        }
+      }
+    }
+  });
+
+  const ctx3 = document.getElementById('publicidadeschart3').getContext('2d');
+  new Chart(ctx3, {
+    type: 'line',
+    data: grafica3Data,
+    options: {
+      animations: {
+        tension: {
+          duration: 1000,
+          easing: 'linear',
+          from: 1,
+          to: 0,
+          loop: true
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 1000
+        }
+      }
+    }
+  });
+  const ctx4 = document.getElementById('publicidadeschart4').getContext('2d');
+  new Chart(ctx4, {
+    type: 'line',
+    data: grafica4Data,
+    options: {
+      animations: {
+        tension: {
+          duration: 1000,
+          easing: 'linear',
+          from: 1,
+          to: 0,
+          loop: true
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 1000
+        }
+      }
+    }
+  });
+
+</script>
+</body>
+
+</html>

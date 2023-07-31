@@ -117,7 +117,7 @@
         </table>
       </div>
     </ul>
-    
+
     </main>
     </div>
     </div>
@@ -128,38 +128,38 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       const chartData = {
-    // SELECT * FROM `publicaciones` WHERE `mes_publicacion` = 5
-    labels: <%= JSON.stringify(publicaciones.map(com => com.Id)) %>,
-    datasets: [{
-        label: 'Número de publicaciones pagadas',
-        data: <%= JSON.stringify(publicaciones.map(com => com.pagado)) %>,
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-    }]
-};
+        // SELECT * FROM `publicaciones` WHERE `mes_publicacion` = 5
+        labels: <%= JSON.stringify(publicaciones.map(com => com.Id)) %>,
+        datasets: [{
+          label: 'Número de publicaciones pagadas',
+          data: <%= JSON.stringify(publicaciones.map(com => com.pagado)) %>,
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+        }]
+      };
 
-const ctx = document.getElementById('publicidadeschart').getContext('2d');
-new Chart(ctx, {
-    type: 'line',
-    data: chartData,
-    options: {
-        animations: {
+      const ctx = document.getElementById('publicidadeschart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+          animations: {
             tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: 0,
-                loop: true
+              duration: 1000,
+              easing: 'linear',
+              from: 1,
+              to: 0,
+              loop: true
             }
-        },
-        scales: {
+          },
+          scales: {
             y: { // defining min and max so hiding the dataset does not change scale range
-                min: 0,
-                max: 1.3
+              min: 0,
+              max: 1.3
             }
+          }
         }
-    }
-});
+      });
 
     </script>
 </body>
