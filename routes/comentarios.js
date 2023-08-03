@@ -6,7 +6,8 @@ router.get('/comentarios', (req, res) => {
   const query = 'SELECT * FROM Comentarios';
   db.query(query, (err, results) => {
     if (err) throw err;
-    res.render('comentarios', { comentarios: results });
+    cantidadDatos = results.length
+    res.render('comentarios', { comentarios: results, cantidadDatos: cantidadDatos });
   });
 });
 

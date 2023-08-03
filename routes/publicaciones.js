@@ -4,10 +4,11 @@ const db = require('../db');
 
 router.get('/publicaciones', (req, res) => {
     let pago = req.query.pago || -1;
+    let estado = req.query.estado || -1;
     let query;
-    console.log(query)
-    if(pago !== -1){
-      query = 'SELECT * FROM publicaciones WHERE pagado = ' + pago;
+    if(pago !== -1 && estado !== -1){
+      // query = 'SELECT * FROM publicaciones WHERE pagado = ' + pago + ' AND Tipo_publicacion = ' + estado;
+      query = `SELECT * FROM publicaciones WHERE Tipo_publicacion = '${estado}' AND pagado = ${pago}`
     }else{
       query = 'SELECT * FROM publicaciones';
     }

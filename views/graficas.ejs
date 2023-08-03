@@ -26,11 +26,23 @@
   form, h2{
     text-align: center;
   }
+  .cajas-suma{
+    width: 400px;
+    height: auto;
+    background-color: rgb(41, 2, 2);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+  }
 </style>
 <body>
     <%- include('layout') %>
+    <div class="cajas-suma">
+      <p>La total de las reacciones son: <%= suma %></p>
+    </div>
     <div class="cajasp">
-
       <div class="caja-datos"> 
         <p>Cantidad de datos obtenidos de publicaciones: <br> <b><%= cantidadDatos1 %></b> </p>
         <img src="/img/publicaciones.jpg" alt="">

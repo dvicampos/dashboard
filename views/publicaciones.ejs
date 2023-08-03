@@ -37,8 +37,18 @@
         <option value="0">No pagado</option>
         <option value="1">Pagado</option>
       </select>
+      <br>
+      <label for="estado">Selecciona su estado:</label>
+      <select name="estado" id="estado">
+        <option value="">Todas</option>
+        <option value="link">Link</option>
+        <option value="photo">Photo</option>
+        <option value="status">Status</option>
+      </select>
+      <br>
       <button type="submit">Buscar</button>
     </form>
+    
     <h2>Publicaciones existentes:</h2>
     <p>Cantidad de datos obtenidos: <%= cantidadDatos %></p>
     <ul>

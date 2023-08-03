@@ -42,6 +42,7 @@ router.get('/graficas', (req, res) => {
                 db.query(queryGrafica4, (err, grafica4Data) => {
                     if (err) throw err;
                     cantidadDatos4 = grafica4Data.length
+                    suma =  cantidadDatos2 + cantidadDatos3 + cantidadDatos4
                     res.render('graficas', {
                         grafica1: grafica1Data,
                         grafica2: grafica2Data,
@@ -54,7 +55,7 @@ router.get('/graficas', (req, res) => {
                         cantidadDatos2: cantidadDatos2,
                         cantidadDatos3: cantidadDatos3,
                         cantidadDatos4: cantidadDatos4,
-                        
+                        suma: suma,
                     });
                 });
             });

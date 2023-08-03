@@ -6,7 +6,8 @@ router.get('/compartir', (req, res) => {
   const query = 'SELECT * FROM Compartir';
   db.query(query, (err, results) => {
     if (err) throw err;
-    res.render('compartir', { compartir: results });
+    cantidadDatos = results.length
+    res.render('compartir', { compartir: results, cantidadDatos: cantidadDatos });
   });
 });
 
