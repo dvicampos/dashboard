@@ -6,7 +6,8 @@ router.get('/likes', (req, res) => {
   const query = 'SELECT * FROM Likes';
   db.query(query, (err, results) => {
     if (err) throw err;
-    res.render('likes', { likes: results });
+    cantidadDatos = results.length
+    res.render('likes', { likes: results, cantidadDatos: cantidadDatos });
   });
 });
 

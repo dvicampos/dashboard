@@ -5,28 +5,114 @@
     <title>List of Publications</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
-
+<style>
+  .caja-datos{
+    width: 200px;
+    height: 400px;
+    text-align: center  ;
+    background-color: rgb(0, 3, 20);
+    border-radius: 20px;
+    padding: 50px;
+    margin: 10px;
+  }
+  img{
+    width: 100px;
+  }
+  .cajasp{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  form, h2{
+    text-align: center;
+  }
+</style>
 <body>
     <%- include('layout') %>
+    <div class="cajasp">
+
+      <div class="caja-datos"> 
+        <p>Cantidad de datos obtenidos de publicaciones: <br> <b><%= cantidadDatos1 %></b> </p>
+        <img src="/img/publicaciones.jpg" alt="">
+      </div>
+      <div class="caja-datos"> 
+        <p>Cantidad de datos obtenidos de likes: <br> <b><%= cantidadDatos2 %></b> </p>
+        <img src="/img/likes.png" alt="likes">
+      </div>
+      <div class="caja-datos"> 
+        <p>Cantidad de datos obtenidos de comentarios: <br> <b><%= cantidadDatos3 %></b> </p>
+        <img src="/img/comentarios.png" alt="">
+      </div>
+      <div class="caja-datos"> 
+        <p>Cantidad de datos obtenidos de compartir: <br> <b><%= cantidadDatos4 %></b></p>
+        <img src="/img/compartir.png" alt="">
+      </div>
+    </div>
         </main>
     </div>
 </div>
+<form action="/graficas" method="GET">
+  <label for="mes">Selecciona un mes:</label>
+      <select name="mes" id="mes">
+        <option value="">Todas</option>
+        <option value="1">Enero</option>
+        <option value="2">Febrero</option>
+        <option value="3">Marzo</option>
+        <option value="4">Abril</option>
+        <option value="5">Mayo</option>
+        <option value="6">Junio</option>
+        <option value="7">Julio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+      </select>
+      <label for="dia">Selecciona un dia:</label>
+      <select name="dia" id="dia">
+        <option value="">Todas</option>
+        <option value="1">Lunes</option>
+        <option value="2">Martes</option>
+        <option value="3">Miercoles</option>
+        <option value="4">Jueves</option>
+        <option value="5">Viernes</option>
+        <option value="6">Sabado</option>
+        <option value="7">Domingo</option>
+      </select>
+      <label for="hora">Selecciona la hora:</label>
+      <select name="hora" id="hora">
+        <option value="">Todas</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+      <button type="submit">Buscar</button>
+</form>
 
-<h2>Gráfica de publicaciones pagadas del mes ...</h2>
+<h2>Gráfica de publicaciones pagadas del mes <%= mesSeleccionado %> , dia: <%= dia %> , hora: <%= hora %></h2> 
 <div class="container">
   <canvas id="publicidadeschart1" width="400" height="200"></canvas>
 </div>
-
+<br>
 <h2>Gráfica de likes:</h2>
 <div class="container">
   <canvas id="publicidadeschart2" width="400" height="200"></canvas>
 </div>
-
+<br>
 <h2>Gráfica de comentarios</h2>
 <div class="container">
   <canvas id="publicidadeschart3" width="400" height="200"></canvas>
 </div>
-
+<br>
 <h2>Gráfica de compartir</h2>
 <div class="container">
   <canvas id="publicidadeschart4" width="400" height="200"></canvas>

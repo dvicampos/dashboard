@@ -3,23 +3,20 @@ const router = express.Router();
 const db = require('../db');
 
 router.get('/publicaciones', (req, res) => {
-  let mes = req.query.mes || -1;
-    let dia = req.query.dia || -1;
-    let hora = req.query.hora || -1;
-    
+    let pago = req.query.pago || -1;
     let query;
-    if (mes === -1 && dia === -1 && hora === -1) {
-      query = 'SELECT * FROM `publicaciones`';
-    } else if (mes !== -1 && dia !== -1 && hora !== -1) {
-      query = `SELECT * FROM publicaciones WHERE mes_publicacion = ${mes} AND dia_publicacion = ${dia} AND hora_publicacion = ${hora}`;
-    } else if (mes !== -1 && dia !== -1) {
-      query = `SELECT * FROM publicaciones WHERE mes_publicacion = ${mes} AND dia_publicacion = ${dia}`;
-    } else {
-      query = `SELECT * FROM publicaciones WHERE mes_publicacion = ${mes}`;
+    console.log(query)
+    if(pago !== -1){
+      query = 'SELECT * FROM publicaciones WHERE pagado = ' + pago;
+    }else{
+      query = 'SELECT * FROM publicaciones';
     }
   db.query(query, (err, results) => {
     if (err) throw err;
-    res.render('publicaciones', { publicaciones: results });
+    cantidadDatos = results.length
+    res.render('publicaciones', { 
+      publicaciones: results, 
+      cantidadDatos: cantidadDatos });
   });
 });
 

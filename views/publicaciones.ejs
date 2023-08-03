@@ -31,52 +31,16 @@
       <button type="submit">Crear</button>
     </form>
     <form action="/publicaciones" method="GET">
-      <label for="mes">Selecciona un mes:</label>
-      <select name="mes" id="mes">
+      <label for="pago">Selecciona si esta pagado o no:</label>
+      <select name="pago" id="pago">
         <option value="">Todas</option>
-        <option value="1">Enero</option>
-        <option value="2">Febrero</option>
-        <option value="3">Marzo</option>
-        <option value="4">Abril</option>
-        <option value="5">Mayo</option>
-        <option value="6">Junio</option>
-        <option value="7">Julio</option>
-        <option value="8">Agosto</option>
-        <option value="9">Septiembre</option>
-        <option value="10">Octubre</option>
-        <option value="11">Noviembre</option>
-        <option value="12">Diciembre</option>
-      </select>
-      <label for="dia">Selecciona un dia:</label>
-      <select name="dia" id="dia">
-        <option value="">Todas</option>
-        <option value="1">Lunes</option>
-        <option value="2">Martes</option>
-        <option value="3">Miercoles</option>
-        <option value="4">Jueves</option>
-        <option value="5">Viernes</option>
-        <option value="6">Sabado</option>
-        <option value="7">Domingo</option>
-      </select>
-      <label for="hora">Selecciona la hora:</label>
-      <select name="hora" id="hora">
-        <option value="">Todas</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
+        <option value="0">No pagado</option>
+        <option value="1">Pagado</option>
       </select>
       <button type="submit">Buscar</button>
     </form>
     <h2>Publicaciones existentes:</h2>
+    <p>Cantidad de datos obtenidos: <%= cantidadDatos %></p>
     <ul>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
