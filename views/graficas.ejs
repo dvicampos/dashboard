@@ -6,14 +6,48 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <style>
+table {
+  position: absolute;
+    margin-left: -1110px;
+    border-collapse: collapse;
+    width: 200px; /* Ancho de la tabla */
+    border: 1px solid #ddd;
+    font-size: 16px;
+
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #0A0743;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #0A0743;
+  }
+
+  tr:hover {
+    background-color: #e0e0e0;
+  }
   .caja-datos{
-    width: 200px;
-    height: 400px;
-    text-align: center  ;
+    width: 400px;
+    height: 280px;
+    text-align: center;
     background-color: rgb(0, 3, 20);
     border-radius: 20px;
     padding: 50px;
     margin: 10px;
+  }
+  .caja-datos:hover{
+    box-shadow: 0 0 50px rgba(245, 245, 245, 0.3);
+  }
+  .cajas-suma:hover{
+    box-shadow: 0px 50px 50px rgba(245, 245, 245, 0.3);
   }
   img{
     width: 100px;
@@ -27,15 +61,84 @@
     text-align: center;
   }
   .cajas-suma{
-    width: 400px;
+    width: 100%;
     height: auto;
-    background-color: rgb(41, 2, 2);
-    color: white;
+    background-color: #F7F7F7;
+    color: rgb(0, 3, 20);
+    text-decoration: dotted;
+    font-size: 30px;
     border-radius: 5px;
     padding: 10px;
     text-align: center;
     margin: 10px;
   }
+  /* Dashboard Styles */
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .chart-container {
+    width: 700px; /* Ancho ajustado para la tabla de publicaciones pagadas */
+    height: 400px;
+    margin: 20px;
+  }
+  .small-chart-container {
+    width: 200px; /* Ancho para las tablas de likes, comentarios y compartir */
+    height: 200px;
+    margin: 20px;
+  }
+  .chart-container,
+  .small-chart-container {
+    flex: none; /* Evita que las tablas pequeñas se ajusten automáticamente */
+  }
+  .charts-row {
+    display: flex;
+    justify-content: space-between; /* Alineación de tablas pequeñas */
+    width: 100%;
+    margin-top: 20px;
+  }
+  .filters {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc; /* Borde base en color gris */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(7, 26, 68, 0.3); /* Sombra en 3D */
+  }
+  .filters:hover{
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+  }
+  label {
+    margin-right: 10px;
+    margin-bottom: 50px;
+  }
+  .dropdown {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+button[type="submit"] {
+  width: auto; /* Ancho automático para que se ajuste al contenido */
+  padding: 12px 20px; /* Puedes ajustar estos valores según tu preferencia */
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
 </style>
 <body>
     <%- include('layout') %>
@@ -63,9 +166,13 @@
         </main>
     </div>
 </div>
-<form action="/graficas" method="GET">
-  <label for="mes">Selecciona un mes:</label>
-      <select name="mes" id="mes">
+<div class="dashboard-container">
+  <h1>Dashboard</h1>
+  <h2>Puede seleccionar el filtro que usted guste: </h2>
+  <div class="filters">
+    <form action="/graficas" method="GET">
+      <label for="mes">Selecciona un mes:</label>
+      <select name="mes" id="mes" class="dropdown">
         <option value="">Todas</option>
         <option value="1">Enero</option>
         <option value="2">Febrero</option>
@@ -80,19 +187,21 @@
         <option value="11">Noviembre</option>
         <option value="12">Diciembre</option>
       </select>
+      <br>
       <label for="dia">Selecciona un dia:</label>
-      <select name="dia" id="dia">
+      <select name="dia" id="dia" class="dropdown">
         <option value="">Todas</option>
         <option value="1">Lunes</option>
         <option value="2">Martes</option>
-        <option value="3">Miercoles</option>
+        <option value="3">Miércoles</option>
         <option value="4">Jueves</option>
         <option value="5">Viernes</option>
-        <option value="6">Sabado</option>
+        <option value="6">Sábado</option>
         <option value="7">Domingo</option>
       </select>
+      <br>
       <label for="hora">Selecciona la hora:</label>
-      <select name="hora" id="hora">
+      <select name="hora" id="hora" class="dropdown">
         <option value="">Todas</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -107,161 +216,207 @@
         <option value="11">11</option>
         <option value="12">12</option>
       </select>
+      <br>
       <button type="submit">Buscar</button>
-</form>
+    </form>
+  </div>
+  
+  <div class="chart-container">
+    <h2>Gráfica de publicaciones pagadas</h2>
+    <canvas id="publicidadeschart1" width="700" height="400"></canvas>
+  </div>
 
-<h2>Gráfica de publicaciones pagadas del mes <%= mesSeleccionado %> , dia: <%= dia %> , hora: <%= hora %></h2> 
-<div class="container">
-  <canvas id="publicidadeschart1" width="400" height="200"></canvas>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Id de Publicación</th>
+        <th>Tipo de Publicación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% grafica1.forEach(publicacion => { %>
+        <tr>
+          <td><%= publicacion.Id %></td>
+          <td><%= publicacion.Tipo_publicacion %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  
+  <div class="chart-container">
+    <h2>Gráfica de likes</h2>
+    <canvas id="publicidadeschart2" width="800" height="400"></canvas>
+  </div>
+  
+  <div class="chart-container">
+    <h2>Gráfica de comentarios</h2>
+    <canvas id="publicidadeschart3" width="800" height="400"></canvas>
+  </div>
+  
+  <div class="chart-container">
+    <h2>Gráfica de compartir</h2>
+    <canvas id="publicidadeschart4" width="800" height="400"></canvas>
+  </div>
+  
+  <div class="chart-container">
+    <h2>Reacciones totales</h2>
+    <canvas id="combinedReactionsChart" width="800" height="400"></canvas>
+  </div>
 </div>
-<br>
-<h2>Gráfica de likes:</h2>
-<div class="container">
-  <canvas id="publicidadeschart2" width="400" height="200"></canvas>
-</div>
-<br>
-<h2>Gráfica de comentarios</h2>
-<div class="container">
-  <canvas id="publicidadeschart3" width="400" height="200"></canvas>
-</div>
-<br>
-<h2>Gráfica de compartir</h2>
-<div class="container">
-  <canvas id="publicidadeschart4" width="400" height="200"></canvas>
-</div>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const grafica1Data = {
+
+
+  const combinedReactionsData = {
+  labels: ['Likes', 'Comments', 'Shares'],
+  datasets: [{
+    data: <%= JSON.stringify(combinedReactions) %>,
+    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(192, 75, 192, 0.6)', 'rgba(192, 192, 75, 0.6)'],
+    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(192, 75, 192, 1)', 'rgba(192, 192, 75, 1)'],
+    borderWidth: 1,
+  }]
+};
+
+const ctxCombined = document.getElementById('combinedReactionsChart').getContext('2d');
+new Chart(ctxCombined, {
+  type: 'polarArea',
+  data: combinedReactionsData,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      r: {
+        beginAtZero: true,
+      }
+    },
+  },
+});
+
+const grafica1Data = {
     labels: <%= JSON.stringify(grafica1.map(publicacion => publicacion.Id)) %>,
     datasets: [{
       label: 'Número de publicaciones pagadas',
       data: <%= JSON.stringify(grafica1.map(publicacion => publicacion.pagado)) %>,
-      fill: false,
-      borderColor: 'rgb(75, 192, 192)',
+      borderColor: 'rgba(75, 192, 192, 1)', // Color de la línea
+      borderWidth: 1, // Ancho de la línea
+      fill: false, // Sin relleno debajo de la línea
+      steppedLine: 'middle', // Estilo de línea escalonada (middle, before, after)
     }]
   };
 
-  const grafica2Data = {
-    labels: <%= JSON.stringify(grafica2.map(likes => likes.Id)) %>,
+  const ctx1 = document.getElementById('publicidadeschart1').getContext('2d');
+  new Chart(ctx1, {
+    type: 'line', // Cambio a gráfica de línea para el estilo de "Stepped Line Charts"
+    data: grafica1Data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+const grafica4Data = {
+    labels: <%= JSON.stringify(grafica4.map(compartir => compartir.Id)) %>,
     datasets: [{
-      label: 'Número de likes',
-      data: <%= JSON.stringify(grafica2.map(likes => likes.numero_gusta)) %>,
-      fill: false,
-      borderColor: 'rgb(192, 75, 192)',
+      label: 'Número de compartidos',
+      data: <%= JSON.stringify(grafica4.map(compartir => compartir.numero_compartir)) %>,
+      borderColor: 'rgba(192, 192, 75, 1)',
+      borderWidth: 1,
+      pointRadius: 5, // Tamaño de los puntos
+      pointBackgroundColor: 'rgba(192, 192, 75, 1)', // Color de los puntos
+      pointBorderColor: 'rgba(255, 255, 255, 1)', // Borde de los puntos
+      pointBorderWidth: 2, // Ancho del borde de los puntos
+      pointStyle: 'rectRot', // Estilo de los puntos (puede ser 'circle', 'cross', 'crossRot', 'dash', 'line', etc.)
+      fill: false, // Sin relleno debajo de la línea
     }]
   };
+
+  const ctx4 = document.getElementById('publicidadeschart4').getContext('2d');
+  new Chart(ctx4, {
+    type: 'line', // Cambio a gráfica de línea para el estilo de "Point Styling"
+    data: grafica4Data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 
   const grafica3Data = {
     labels: <%= JSON.stringify(grafica3.map(comentarios => comentarios.Id)) %>,
     datasets: [{
       label: 'Número de comentarios',
       data: <%= JSON.stringify(grafica3.map(comentarios => comentarios.numero_comentarios)) %>,
-      fill: false,
-      borderColor: 'rgb(192, 192, 75)',
+      borderColor: 'rgba(192, 192, 75, 1)',
+      borderWidth: 1,
+      pointRadius: 5, // Tamaño de los puntos
+      pointBackgroundColor: 'rgba(192, 192, 75, 1)', // Color de los puntos
+      pointBorderColor: 'rgba(255, 255, 255, 1)', // Borde de los puntos
+      pointBorderWidth: 2, // Ancho del borde de los puntos
+      pointStyle: 'triangle', // Estilo de los puntos (puede ser 'circle', 'cross', 'crossRot', 'dash', 'line', etc.)
+      fill: false, // Sin relleno debajo de la línea
     }]
   };
-  const grafica4Data = {
-    labels: <%= JSON.stringify(grafica4.map(compartir => compartir.Id)) %>,
-    datasets: [{
-      label: 'Número de compartidos',
-      data: <%= JSON.stringify(grafica4.map(compartir => compartir.numero_compartir)) %>,
-      fill: false,
-      borderColor: 'rgb(192, 192, 75)',
-    }]
-  };
-
-  const ctx1 = document.getElementById('publicidadeschart1').getContext('2d');
-  new Chart(ctx1, {
-    type: 'line',
-    data: grafica1Data,
-    options: {
-      animations: {
-        tension: {
-          duration: 1000,
-          easing: 'linear',
-          from: 1,
-          to: 0,
-          loop: true
-        }
-      },
-      scales: {
-        y: {
-          min: 0,
-          max: 1.3
-        }
-      }
-    }
-  });
-
-  const ctx2 = document.getElementById('publicidadeschart2').getContext('2d');
-  new Chart(ctx2, {
-    type: 'line',
-    data: grafica2Data,
-    options: {
-      animations: {
-        tension: {
-          duration: 1000,
-          easing: 'linear',
-          from: 1,
-          to: 0,
-          loop: true
-        }
-      },
-      scales: {
-        y: {
-          min: 0,
-          max: 5500
-        }
-      }
-    }
-  });
 
   const ctx3 = document.getElementById('publicidadeschart3').getContext('2d');
   new Chart(ctx3, {
-    type: 'line',
+    type: 'line', // Cambio a gráfica de línea para el estilo de "Point Styling"
     data: grafica3Data,
     options: {
-      animations: {
-        tension: {
-          duration: 1000,
-          easing: 'linear',
-          from: 1,
-          to: 0,
-          loop: true
-        }
-      },
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
-          min: 0,
-          max: 1000
-        }
-      }
-    }
-  });
-  const ctx4 = document.getElementById('publicidadeschart4').getContext('2d');
-  new Chart(ctx4, {
-    type: 'line',
-    data: grafica4Data,
-    options: {
-      animations: {
-        tension: {
-          duration: 1000,
-          easing: 'linear',
-          from: 1,
-          to: 0,
-          loop: true
-        }
+          beginAtZero: true,
+        },
       },
-      scales: {
-        y: {
-          min: 0,
-          max: 1000
-        }
-      }
-    }
-  });
+    },
+  }); 
 
+  const grafica2Data = {
+    labels: <%= JSON.stringify(grafica2.map(likes => likes.Id)) %>,
+    datasets: [{
+      label: 'Número de likes',
+      data: <%= JSON.stringify(grafica2.map(likes => likes.numero_gusta)) %>,
+      borderColor: 'rgba(192, 75, 192, 1)',
+      borderWidth: 1,
+      pointRadius: 5, // Tamaño de los puntos
+      pointBackgroundColor: 'rgba(192, 75, 192, 1)', // Color de los puntos
+      pointBorderColor: 'rgba(255, 255, 255, 1)', // Borde de los puntos
+      pointBorderWidth: 2, // Ancho del borde de los puntos
+      pointStyle: 'circle', // Estilo de los puntos (puede ser 'circle', 'cross', 'crossRot', 'dash', 'line', etc.)
+      fill: false, // Sin relleno debajo de la línea
+    }]
+  };
+
+  const ctx2 = document.getElementById('publicidadeschart2').getContext('2d');
+  new Chart(ctx2, {
+    type: 'line', // Cambio a gráfica de línea para el estilo de "Point Styling"
+    data: grafica2Data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 </script>
 </body>
 

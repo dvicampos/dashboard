@@ -5,50 +5,179 @@
   <title>List of Publications</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
-
+<style>
+  table {
+      border-collapse: collapse;
+      width: 200px; /* Ancho de la tabla */
+      border: 1px solid #ddd;
+      font-size: 16px;
+  
+    }
+  
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+  
+    th {
+      background-color: #0A0743;
+      font-weight: bold;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #0A0743;
+    }
+  
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+    .caja-datos{
+      width: 400px;
+      height: 280px;
+      text-align: center;
+      background-color: rgb(0, 3, 20);
+      border-radius: 20px;
+      padding: 50px;
+      margin: 10px;
+    }
+    .caja-datos:hover{
+      box-shadow: 0 0 50px rgba(43, 87, 235, 0.3);
+    }
+    img{
+      width: 100px;
+    }
+    .cajasp{
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+    form, h2{
+      text-align: center;
+    }
+    .cajas-suma{
+      width: 100%;
+      height: auto;
+      background-color: #F7F7F7;
+      color: rgb(0, 3, 20);
+      text-decoration: dotted;
+      font-size: 30px;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+      margin: 10px;
+    }
+    /* Dashboard Styles */
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .chart-container {
+      width: 700px; /* Ancho ajustado para la tabla de publicaciones pagadas */
+      height: 400px;
+      margin: 20px;
+    }
+    .small-chart-container {
+      width: 200px; /* Ancho para las tablas de likes, comentarios y compartir */
+      height: 200px;
+      margin: 20px;
+    }
+    .chart-container,
+    .small-chart-container {
+      flex: none; /* Evita que las tablas pequeñas se ajusten automáticamente */
+    }
+    .charts-row {
+      display: flex;
+      justify-content: space-between; /* Alineación de tablas pequeñas */
+      width: 100%;
+      margin-top: 20px;
+    }
+    .filters {
+      height: auto;
+      margin-top: 20px;
+      text-align: center;
+      padding: 20px;
+      border: 1px solid #ccc; /* Borde base en color gris */
+      border-radius: 5px; /* Bordes redondeados */
+      box-shadow: 0 0 10px rgba(7, 26, 68, 0.3); /* Sombra en 3D */
+    }
+    .filters:hover{
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+    }
+    label {
+      margin-right: 10px;
+      margin-bottom: 50px;
+    }
+    .dropdown {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  button[type="submit"] {
+    width: auto; /* Ancho automático para que se ajuste al contenido */
+    padding: 12px 20px; /* Puedes ajustar estos valores según tu preferencia */
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  </style>  
 <body>
   <%- include('layout') %>
     <h2>Crear una nueva publicación:</h2>
     <form action="/publicaciones" method="POST">
       <label for="Id">Id:</label>
-      <input type="text" name="Id" required>
+      <input type="number" name="Id" required>
 
       <label for="Tipo_publicacion">Tipo de publicación:</label>
       <input type="text" name="Tipo_publicacion" required>
 
       <label for="mes_publicacion">Mes de publicación:</label>
-      <input type="text" name="mes_publicacion" required>
+      <input type="number" name="mes_publicacion" required>
       <br>
       <label for="dia_publicacion">Día de publicación:</label>
-      <input type="text" name="dia_publicacion" required>
+      <input type="number" name="dia_publicacion" required>
 
       <label for="hora_publicacion">Hora de publicación:</label>
-      <input type="text" name="hora_publicacion" required>
+      <input type="number" name="hora_publicacion" required>
 
       <label for="pagado">Pagado (Sí(1) o No(0)):</label>
-      <input type="text" name="pagado" required>
+      <input type="number" name="pagado" required>
 
       <button type="submit">Crear</button>
     </form>
+  <div class="filters">
     <form action="/publicaciones" method="GET">
-      <label for="pago">Selecciona si esta pagado o no:</label>
-      <select name="pago" id="pago">
-        <option value="">Todas</option>
-        <option value="0">No pagado</option>
-        <option value="1">Pagado</option>
-      </select>
-      <br>
-      <label for="estado">Selecciona su estado:</label>
-      <select name="estado" id="estado">
-        <option value="">Todas</option>
-        <option value="link">Link</option>
-        <option value="photo">Photo</option>
-        <option value="status">Status</option>
-      </select>
-      <br>
-      <button type="submit">Buscar</button>
+        <label for="pago">Selecciona si esta pagado o no:</label>
+        <select name="pago" id="pago" class="dropdown">
+          <option value="">Todas</option>
+          <option value="0">No pagado</option>
+          <option value="1">Pagado</option>
+        </select>
+        <br>
+        <label for="estado">Selecciona su estado:</label>
+        <select name="estado" id="estado" class="dropdown">
+          <option value="">Todas</option>
+          <option value="link">Link</option>
+          <option value="photo">Photo</option>
+          <option value="status">Status</option>
+        </select>
+        <br>
+        <button type="submit">Buscar</button>
     </form>
-    
+  </div>
     <h2>Publicaciones existentes:</h2>
     <p>Cantidad de datos obtenidos: <%= cantidadDatos %></p>
     <ul>

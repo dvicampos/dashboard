@@ -3,23 +3,30 @@ const router = express.Router();
 const db = require('../db');
 
 router.get('/publicaciones', (req, res) => {
-    let pago = req.query.pago || -1;
-    let estado = req.query.estado || -1;
-    let query;
-    if(pago !== -1 && estado !== -1){
-      // query = 'SELECT * FROM publicaciones WHERE pagado = ' + pago + ' AND Tipo_publicacion = ' + estado;
-      query = `SELECT * FROM publicaciones WHERE Tipo_publicacion = '${estado}' AND pagado = ${pago}`
-    }else{
+  let pago = req.query.pago || -1;
+  let estado = req.query.estado || -1;
+  let query;
+
+  if (pago !== -1 && estado !== -1) {
+      query = `SELECT * FROM publicaciones WHERE Tipo_publicacion = '${estado}' AND pagado = ${pago}`;
+  } else if (pago !== -1) {
+      query = `SELECT * FROM publicaciones WHERE pagado = ${pago}`;
+  } else if (estado !== -1) {
+      query = `SELECT * FROM publicaciones WHERE Tipo_publicacion = '${estado}'`;
+  } else {
       query = 'SELECT * FROM publicaciones';
-    }
+  }
+
   db.query(query, (err, results) => {
-    if (err) throw err;
-    cantidadDatos = results.length
-    res.render('publicaciones', { 
-      publicaciones: results, 
-      cantidadDatos: cantidadDatos });
+      if (err) throw err;
+      cantidadDatos = results.length;
+      res.render('publicaciones', {
+          publicaciones: results,
+          cantidadDatos: cantidadDatos
+      });
   });
 });
+
 
 
 

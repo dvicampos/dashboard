@@ -11,7 +11,7 @@ router.get('/graficas', (req, res) => {
     let queryGrafica2 = `SELECT likes.Id, likes.numero_gusta FROM likes INNER JOIN publicaciones ON likes.Id_publicacion = publicaciones.Id`;
     let queryGrafica3 = `SELECT comentarios.Id, comentarios.numero_comentarios FROM comentarios INNER JOIN publicaciones ON comentarios.Id_publicacion = publicaciones.Id`;
     let queryGrafica4 = `SELECT compartir.Id, compartir.numero_compartir FROM compartir INNER JOIN publicaciones ON compartir.Id_publicacion = publicaciones.Id`;
-
+    
     let whereClause = [];
     if (mesSeleccionado) {
         whereClause.push(`mes_publicacion = ${mesSeleccionado}`);
@@ -43,6 +43,12 @@ router.get('/graficas', (req, res) => {
                     if (err) throw err;
                     cantidadDatos4 = grafica4Data.length
                     suma =  cantidadDatos2 + cantidadDatos3 + cantidadDatos4
+                    const context = {
+                        grafica1Data: grafica1Data, // Aquí debes tener los resultados filtrados
+                        mesSeleccionado: mesSeleccionado,
+                        dia: dia,
+                        hora: hora,
+                      };    
                     res.render('graficas', {
                         grafica1: grafica1Data,
                         grafica2: grafica2Data,
@@ -56,6 +62,8 @@ router.get('/graficas', (req, res) => {
                         cantidadDatos3: cantidadDatos3,
                         cantidadDatos4: cantidadDatos4,
                         suma: suma,
+                        combinedReactions: [cantidadDatos2, cantidadDatos3, cantidadDatos4],
+                        context: context
                     });
                 });
             });
